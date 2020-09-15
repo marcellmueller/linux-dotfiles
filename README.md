@@ -14,3 +14,5 @@ Turn off Mate desktop icons:
 dconf write /org/mate/desktop/background/show-desktop-icons "false"
 
 Log out/reset pc :)
+
+asdas
