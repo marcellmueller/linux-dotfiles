@@ -1,8 +1,8 @@
-#My dotfiles for Mate/i3wm setup
+# My dotfiles for Mate/i3wm setup
 
 Backup for my Linux setup files running **i3** over the **Mate** desktop environment which is IMO a perfect combination. I use Ubuntu Mate but should work on any distro running Mate aside from the apt install command.
 
-##Drop these files in ~/.config
+## Drop these files in ~/.config
 
 **Requirements:**
 
