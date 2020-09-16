@@ -1,6 +1,6 @@
 # My dotfiles for Mate/i3wm setup
 
-Backup for my Linux setup files running **i3** over the **Mate** desktop environment which is IMO a perfect combination. I use Ubuntu Mate but should work on any distro running Mate aside from the apt install command.
+Backup for my Linux setup files running **i3** over the **Mate** desktop environment which is IMO a perfect combination. It works pretty much flawlessly for some of the comforts of a normal GUI based desktop environment with the benefits of an i3 workflow and is much easier to set up than combining i3 with XFCE or KDE Plasma. I use Ubuntu Mate but should work on any distro running Mate aside from the apt install command.
 
 ## Drop these files in ~/.config
 
