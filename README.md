@@ -4,7 +4,7 @@ Drop these files in ~/.config
 
 Requirements:
 
-sudo apt install i3 i3blocks i3status rofi redshift-gtk
+sudo apt install i3 i3blocks rofi redshift-gtk
 
 Switch Mate window manager to i3:
 
