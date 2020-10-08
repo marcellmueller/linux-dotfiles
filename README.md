@@ -24,7 +24,7 @@ dconf write /org/mate/desktop/background/show-desktop-icons "false"
 
 Log out/reset pc
 
-**Alternate install script**
+## Alternate install script
 
 Haven't tried on fresh install yet but working on an install script. Runs these commands:
 
