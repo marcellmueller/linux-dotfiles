@@ -1,6 +1,6 @@
 ## Ubuntu Mate Post Install Script
 
-Sets up i3 window manager among other stuff I use.
+Full post install script for my Ubuntu Mate/i3 setup. Run install.sh or manually install everything and drop the folders in .config.
 
 ```
 sudo chmod +x install.sh
