@@ -21,4 +21,9 @@ dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
 dconf write /org/mate/desktop/background/show-desktop-icons "false"
 mv i3 i3status redshift rofi ~/.config
 mv ijkl ~/.config/autokey
-sudo apt -y autoremove
+git config --global user.name "marcellmueller"
+git config --global user.email "mlmueller@protonmail.com"
+git config --global color.ui auto
+sudo apt update -y  && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove 
+ssh-keygen -C mlmueller@protonmail.com
+cat ~/.ssh/id_rsa.pub
