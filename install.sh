@@ -5,7 +5,7 @@ sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
 sudo apt install -y i3 i3blocks rofi redshift-gtk 
 sudo apt install -y steam autokey-gtk nautilus git curl htop tlp powertop gimp libreoffice 
-sudo apt install -y nodejs build-essential 
+sudo apt install -y nodejs build-essential adapta-gtk-theme
 sudo apt install -y vagrant virtualbox virtualbox-guest-utils virtualbox-guest-dkms linux-headers-generic 
 sudo snap install chromium
 sudo snap remove software-boutique
@@ -21,9 +21,14 @@ dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
 dconf write /org/mate/desktop/background/show-desktop-icons "false"
 mv i3 i3status redshift rofi ~/.config
 mv ijkl ~/.config/autokey
+mkdir lighthouse
+cd lighthouse
+curl -O http://d10ofk0qhbh8u9.cloudfront.net/vagrant/Vagrantfile
+vagrant up
+cd
 git config --global user.name "marcellmueller"
 git config --global user.email "mlmueller@protonmail.com"
 git config --global color.ui auto
-sudo apt update -y  && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt autoremove 
+sudo apt update -y  && sudo apt upgrade -y && sudo apt dist-upgrade -y && sudo apt -y autoremove 
 ssh-keygen -C mlmueller@protonmail.com
 cat ~/.ssh/id_rsa.pub
