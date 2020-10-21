@@ -3,6 +3,8 @@
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt-get dist-upgrade -y
+mv i3 i3status redshift rofi ~/.config
+mv ijkl ~/.config/autokey
 sudo apt install -y i3 i3blocks rofi redshift-gtk 
 sudo apt install -y steam autokey-gtk nautilus git curl htop tlp powertop gimp libreoffice 
 sudo apt install -y nodejs build-essential adapta-gtk-theme
@@ -19,13 +21,11 @@ sudo apt-get update -y
 sudo apt-get install -y code
 dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
 dconf write /org/mate/desktop/background/show-desktop-icons "false"
-mv i3 i3status redshift rofi ~/.config
-mv ijkl ~/.config/autokey
+cd
 mkdir lighthouse
 cd lighthouse
 curl -O http://d10ofk0qhbh8u9.cloudfront.net/vagrant/Vagrantfile
 vagrant up
-cd
 git config --global user.name "marcellmueller"
 git config --global user.email "mlmueller@protonmail.com"
 git config --global color.ui auto
