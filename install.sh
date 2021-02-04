@@ -8,7 +8,6 @@ mv ijkl ~/.config/autokey
 sudo apt install -y i3 i3blocks rofi redshift-gtk 
 sudo apt install -y steam autokey-gtk nautilus git curl htop tlp powertop gimp libreoffice 
 sudo apt install -y nodejs build-essential adapta-gtk-theme
-sudo apt install -y vagrant virtualbox virtualbox-guest-utils virtualbox-guest-dkms linux-headers-generic 
 sudo snap install chromium
 sudo snap remove software-boutique
 sudo snap remove ubuntu-mate-welcome
