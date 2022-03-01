@@ -110,4 +110,4 @@ tztime local {
 #	format = " %h-%d %H:%M ☰ "
 	# termsyn font
 	format = " %h-%d É %H:%M  ¸ ÈÈÈ È "
-}<p></p>
+}

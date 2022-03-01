@@ -190,7 +190,9 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 
 
-set $bg #2e3436 
+#set $bg #2e3436 
+set $bg #1d2021 
+
 set $red #cc241d
 set $green #98971a
 set $yellow #eeeeec 
