@@ -7,6 +7,7 @@ mv i3 i3status redshift rofi ~/.config
 mv ijkl ~/.config/autokey
 sudo apt install -y i3 i3blocks rofi redshift-gtk
 sudo apt install -y steam autokey-gtk nautilus git curl htop tlp powertop gimp 
+sudo tlp start
 sudo apt install -y nodejs build-essential adapta-gtk-theme
 sudo snap install chromium
 sudo snap remove software-boutique
@@ -20,7 +21,7 @@ sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.
 sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 
 # Github CLI
-url -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
 
 # Gcloud CLI
