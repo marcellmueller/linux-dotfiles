@@ -40,6 +40,11 @@ sudo apt update -y
 sudo apt install -y code gh google-cloud-cli kubectl
 sudo apt install -y docker-ce docker-ce-cli containerd.io
 
+# Insomnia
+curl https://updates.insomnia.rest/downloads/ubuntu/latest
+sudo dpkg -i latest
+rm latest
+
 # Replace Mate window manager with i3
 dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
 # Hide desktop icons
