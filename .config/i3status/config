@@ -9,57 +9,70 @@
 general {
         colors = true
         interval = 5
-        color_good = "#98971a"
-        color_degraded = "#d79921"
-        color_bad = "#cc241d"
+        # separator_block_width removed from here
 }
 
-# order += "ipv6"
 order += "wireless _first_"
-order += "ethernet _first_"
+# order += "ethernet _first_"
 order += "disk /"
 order += "cpu_usage"
 order += "memory"
-order += "tztime local"
+order += "battery 0"
 order += "volume master"
+order += "tztime local"
 
 wireless _first_ {
-        format_up = "W: (%quality at %essid) %ip"
-        format_down = "W: down"
+        format_up = " %essid %ip"
+        format_down = " down"
+        separator_block_width = 30
 }
 
-ethernet _first_ {
-        format_up = "E: %ip (%speed)"
-        format_down = "E: down"
-}
+# ethernet _first_ {
+#         format_up = "E: %ip (%speed)"
+#         format_down = "E: down"
+# }
 
-battery all {
-        format = "%status %percentage %remaining"
+battery 0 {
+        integer_battery_capacity = true
+        format = "%status%percentage 🕒%remaining 🔌%consumption"
+        last_full_capacity = true
+        low_threshold = 30
+        threshold_type = percentage
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "⚡"
+        status_full = "☻"
+        separator_block_width = 30
 }
 
 disk "/" {
         format = "%avail"
+        separator_block_width = 30
 }
 
 cpu_usage {
         format = "CPU %usage"
         max_threshold = 75
+        separator_block_width = 30
 }
 
 memory {
         format = "MEM %percentage_used"
         threshold_degraded = "1G"
         format_degraded = "MEMORY < %available"
+        separator_block_width = 30
 }
 
 tztime local {
         format = "%a %b %d %I:%M %p"
+        separator_block_width = 30
 }
 
 volume master {
-        format = "♪: %volume"
-        format_muted = "♪: muted (%volume)"
+        format = "🔉%volume"
+        format_muted = "🔇(%volume)"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
+        separator_block_width = 30
 }

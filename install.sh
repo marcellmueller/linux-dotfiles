@@ -10,6 +10,11 @@ warn() {
     echo -e "\033[1;33m[WARN] $1\033[0m"
 }
 
+# Configuration
+CONFIG_DIR="./.config"
+FONT_DIR="$HOME/.local/share/fonts"
+
+
 # System Update
 system_update() {
     log "Updating system..."
@@ -39,7 +44,7 @@ remove_bloat() {
     # Prevent Snap from being reinstalled
     sudo apt-mark hold snapd
 
-    # Remove GNOME Sessions & Extras (Be careful not to kill potential dependencies for other needed things, but we are going minimalist)
+    # Remove GNOME Sessions & Extras
     sudo apt remove --purge -y gnome-shell ubuntu-session gdm3 gnome-startup-applications gnome-software gnome-terminal gnome-control-center nautilus
     
     # Clean up
@@ -127,7 +132,11 @@ install_firefox() {
     log "Installing Firefox (Non-Snap)..."
     
     sudo install -d -m 0755 /etc/apt/keyrings
-    wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+    
+    if ! wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null; then
+        warn "Failed to download Mozilla GPG key. Skipping Firefox installation."
+        return
+    fi
     
     echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee /etc/apt/sources.list.d/mozilla.list > /dev/null
     
@@ -157,16 +166,14 @@ install_zed() {
 copy_dotfiles() {
     log "Installing Dotfiles..."
     
-    # 1. Install from Local .config directory
-    STAGING_DIR="./.config"
-    
-    if [ -d "$STAGING_DIR" ]; then
-        log "Installing configs from local .config to ~/.config..."
-        mkdir -p ~/.config
-        cp -r "$STAGING_DIR"/* ~/.config/
-    else
-        warn "Local config directory ($STAGING_DIR) not found. Skipping dotfiles installation."
+    if [ ! -d "$CONFIG_DIR" ]; then
+        warn "Config directory ($CONFIG_DIR) not found. Skipping dotfiles installation."
+        return
     fi
+    
+    log "Installing configs from $CONFIG_DIR to ~/.config..."
+    mkdir -p ~/.config
+    cp -r "$CONFIG_DIR"/* ~/.config/
 }
 
 configure_grub() {
@@ -215,36 +222,23 @@ setup_antigravity() {
     echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
       sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
 
-    # 2. Update the package cache
     sudo apt update
 
-    # 3. Install the package
     sudo apt install -y antigravity
 }
 
 
 # Install Neovim & Fonts
 install_neovim() {
-    log "Installing Neovim (Latest Stable) & Nerd Fonts..."
+    log "Installing Neovim & Nerd Fonts..."
 
-    # 1. Install Neovim (from GitHub Releases for newer version)
     if ! command -v nvim &> /dev/null; then
-        log "Downloading Neovim..."
-        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-        sudo rm -rf /opt/nvim
-        sudo tar -C /opt -xzf nvim-linux64.tar.gz
-        
-        # Create symlink
-        sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
-        
-        # Cleanup
-        rm nvim-linux64.tar.gz
+        log "Installing Neovim via apt..."
+        sudo apt install -y neovim
     else
         log "Neovim is already installed."
     fi
 
-    # 2. Install JetBrainsMono Nerd Font
-    FONT_DIR="$HOME/.local/share/fonts"
     if [ ! -d "$FONT_DIR/JetBrainsMono" ]; then
         log "Installing JetBrainsMono Nerd Font..."
         mkdir -p "$FONT_DIR/JetBrainsMono"
@@ -252,7 +246,6 @@ install_neovim() {
         unzip -o -q JetBrainsMono.zip -d "$FONT_DIR/JetBrainsMono"
         rm JetBrainsMono.zip
         
-        # Install fontconfig if missing
         if ! command -v fc-cache &> /dev/null; then
              sudo apt install -y fontconfig
         fi

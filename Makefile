@@ -6,4 +6,14 @@ config:
 	-@i3-msg reload
 	@echo "Done."
 
-.PHONY: config
+.PHONY: config save_local
+
+save_local:
+	@echo "Saving config from $(HOME)/.config to .config..."
+	@mkdir -p .config
+	@cp -r $(HOME)/.config/alacritty .config/
+	@cp -r $(HOME)/.config/nvim .config/
+	@cp -r $(HOME)/.config/i3 .config/
+	@cp -r $(HOME)/.config/i3status .config/
+	@cp -r $(HOME)/.config/rofi .config/
+	@echo "Done."
