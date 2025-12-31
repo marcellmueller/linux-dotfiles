@@ -223,6 +223,46 @@ setup_antigravity() {
 }
 
 
+# Install Neovim & Fonts
+install_neovim() {
+    log "Installing Neovim (Latest Stable) & Nerd Fonts..."
+
+    # 1. Install Neovim (from GitHub Releases for newer version)
+    if ! command -v nvim &> /dev/null; then
+        log "Downloading Neovim..."
+        curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+        sudo rm -rf /opt/nvim
+        sudo tar -C /opt -xzf nvim-linux64.tar.gz
+        
+        # Create symlink
+        sudo ln -sf /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
+        
+        # Cleanup
+        rm nvim-linux64.tar.gz
+    else
+        log "Neovim is already installed."
+    fi
+
+    # 2. Install JetBrainsMono Nerd Font
+    FONT_DIR="$HOME/.local/share/fonts"
+    if [ ! -d "$FONT_DIR/JetBrainsMono" ]; then
+        log "Installing JetBrainsMono Nerd Font..."
+        mkdir -p "$FONT_DIR/JetBrainsMono"
+        wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip -O JetBrainsMono.zip
+        unzip -o -q JetBrainsMono.zip -d "$FONT_DIR/JetBrainsMono"
+        rm JetBrainsMono.zip
+        
+        # Install fontconfig if missing
+        if ! command -v fc-cache &> /dev/null; then
+             sudo apt install -y fontconfig
+        fi
+        
+        fc-cache -fv
+    else
+        log "JetBrainsMono Nerd Font already installed."
+    fi
+}
+
 # --- Main Execution ---
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     read -p "This script will remove GNOME and SNAPD. Are you sure? (y/N) " -n 1 -r
@@ -239,6 +279,7 @@ configure_grub
 install_gui_utils
 install_firefox
 install_dev_tools
+install_neovim
 install_zed
 copy_dotfiles
 setup_antigravity

@@ -183,6 +183,9 @@ exec --no-startup-id dunst
 # Wallpaper
 # exec --no-startup-id feh --bg-fill /path/to/wallpaper.jpg
 
+# Clear any existing options first, then set Caps to Escape
+exec_always --no-startup-id setxkbmap -option -option caps:escape
+
 # Start i3bar
 bar {
         status_command i3status
